@@ -50,6 +50,20 @@ A full VR conversion mod for the original 2003 PC edition of _Halo: Combat Evolv
 1. Go play the MCC version instead
 2. Delete/rename the d3d9.dll you placed in the same directory as the halo executable (this contains all of the mod code and is only pretending to be d3d9 to trick halo into loading it)
 
+## Compiling Source
+1. Make sure you're running VS 2022 and open the solution.
+2. Ensure that C++ Language Standard is ISO C++ 17 Standard (/std:c++17). This can be found under HaloCEVR Properties -> Configuration Properties -> General.
+3. Set solution build configuration to release and target x86.
+
+This should be everything that needs to be done inside of the HaloCEVR project, however it is likely you will need to compile MinHooks.
+1. Go to https://github.com/TsudaKageyu/minhook and clone the project.
+2. Open the file and navigate to build/VC17, open this solution.
+3. Set solution build configuration to release and target x86.
+4. Build the libMinHook project, the result of which should be a libMinHook.x86.lib file.
+5. Replace the file libMinHook.x86.lib in the HaloCEVR folder found at HaloCEVR-master\ThirdParty\MinHook\lib with this newly compiled libMinHook.x86.lib file
+
+You should now be able to build successfully, this will generate a d3d9.dll file, using the "makerelease" bat file we can create a zip containing the d3d9.dll and the VR folder. You will need to add openvr_api.dll yourself, either by adding to the release folder so the bat file can pickup copy and zip it, or by adding it directly into your halo CE installation directory.
+
 ## FAQ
 ### Why the gearbox port and not MCC?
 Short answer: skill issue.
